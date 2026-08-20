@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+    <meta name="description" content="WIN Holdings - CCN Ngọc Châu - Tham quan dự án khu công nghiệp 360">
+    <title>Cụm công nghiệp Ngọc Châu Bắc Ninh - Website chính thức</title>
+    <link rel="icon" type="image/png" href="img/logo1.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/reset.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @-ms-viewport {
+            width: device-width;
+        }
+    </style>
+</head>
+
+<body class="multiple-scenes">
+
+    <!-- 360 Panorama Viewer Canvas -->
+    <div id="pano"></div>
+
+    <!-- Language Switcher Bar -->
+    <div class="lang-switcher-container" id="langSwitcherContainer">
+        <button type="button" class="lang-current-btn" id="langCurrentBtn" aria-label="Chọn ngôn ngữ">
+            <span class="lang-flag-icon" id="currentLangIcon">
+                <svg viewBox="0 0 36 36" width="30" height="30" style="border-radius: 6px; display: block;">
+                    <rect width="36" height="36" rx="6" fill="#DA251D" />
+                    <polygon
+                        points="18,7.5 21.3,13.8 28.3,14.7 23.2,19.6 24.5,26.5 18,23 11.5,26.5 12.8,19.6 7.7,14.7 14.7,13.8"
+                        fill="#FFDE00" />
+                </svg>
+            </span>
+        </button>
+        <div class="lang-dropdown-menu" id="langDropdownMenu">
+            <div class="lang-option active" data-lang="vi" title="Tiếng Việt">
+                <span class="lang-flag-icon">
+                    <svg viewBox="0 0 36 36" width="30" height="30" style="border-radius: 6px; display: block;">
+                        <rect width="36" height="36" rx="6" fill="#DA251D" />
+                        <polygon
+                            points="18,7.5 21.3,13.8 28.3,14.7 23.2,19.6 24.5,26.5 18,23 11.5,26.5 12.8,19.6 7.7,14.7 14.7,13.8"
+                            fill="#FFDE00" />
+                    </svg>
+                </span>
+            </div>
+            <div class="lang-option" data-lang="en" title="English">
+                <span class="lang-flag-icon">
+                    <svg viewBox="0 0 36 36" width="30" height="30" style="border-radius: 6px; display: block;">
+                        <clipPath id="uk-flag-clip">
+                            <rect width="36" height="36" rx="6" />
+                        </clipPath>
+                        <g clip-path="url(#uk-flag-clip)">
+                            <rect width="36" height="36" fill="#00247D" />
+                            <path d="M0,0 L36,36 M36,0 L0,36" stroke="#FFFFFF" stroke-width="6" />
+                            <path d="M0,0 L36,36 M36,0 L0,36" stroke="#CF142B" stroke-width="2" />
+                            <path d="M18,0 V36 M0,18 H36" stroke="#FFFFFF" stroke-width="10" />
+                            <path d="M18,0 V36 M0,18 H36" stroke="#CF142B" stroke-width="6" />
+                        </g>
+                    </svg>
+                </span>
+            </div>
+            <div class="lang-option" data-lang="cn" title="Chinese">
+                <span class="lang-flag-icon">
+                    <svg viewBox="0 0 36 36" width="30" height="30" style="border-radius: 6px; display: block;">
+                        <rect width="36" height="36" rx="6" fill="#EE1C25" />
+                        <polygon points="9,5 10.3,9 14.5,9 11.1,11.5 12.4,15.5 9,13 5.6,15.5 6.9,11.5 3.5,9 7.7,9"
+                            fill="#FFDE00" />
+                        <polygon points="17,4 17.5,5.5 19,5.5 17.7,6.4 18.2,7.9 17,7 15.8,7.9 16.3,6.4 15,5.5 16.5,5.5"
+                            fill="#FFDE00" />
+                        <polygon
+                            points="19,7 19.5,8.5 21,8.5 19.7,9.4 20.2,10.9 19,10 17.8,10.9 18.3,9.4 17,8.5 18.5,8.5"
+                            fill="#FFDE00" />
+                        <polygon
+                            points="19,11 19.5,12.5 21,12.5 19.7,13.4 20.2,14.9 19,14 17.8,14.9 18.3,13.4 17,12.5 18.5,12.5"
+                            fill="#FFDE00" />
+                        <polygon
+                            points="17,14 17.5,15.5 19,15.5 17.7,16.4 18.2,17.9 17,17 15.8,17.9 16.3,16.4 15,15.5 16.5,15.5"
+                            fill="#FFDE00" />
+                    </svg>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-bar">
+        <div class="bottom-logo">
+            <div class="logo-icon">
+                <img src="img/logo.png" alt="WIN HOLDINGS Logo">
+            </div>
+        </div>
+        <div class="nav-tabs">
+            <!-- THAM QUAN - hover hiện menu chọn góc nhìn 360 -->
+            <div class="nav-tab" id="tabThamQuan" data-tab="thamquan">
+                <span data-i18n="NAV_THAMQUAN">THAM QUAN</span>
+                <div class="tab-popup">
+                    <div class="popup-item" data-value="cong-chinh">
+                        <span class="popup-dot"></span><span data-i18n="CONG_CHINH">CỔNG CHÍNH</span>
+                    </div>
+                    <div class="popup-item" data-value="mat-truoc">
+                        <span class="popup-dot"></span><span data-i18n="MAT_TRUOC">TỔNG THỂ MẶT TRƯỚC</span>
+                    </div>
+                    <div class="popup-item" data-value="mat-sau">
+                        <span class="popup-dot"></span><span data-i18n="MAT_SAU">TỔNG THỂ MẶT SAU</span>
+                    </div>
+                    <div class="popup-item" data-value="giao-thong">
+                        <span class="popup-dot"></span><span data-i18n="GIAO_THONG">ĐƯỜNG GIAO THÔNG CHÍNH</span>
+                    </div>
+                    <div class="popup-item" data-value="nuoc-thai">
+                        <span class="popup-dot"></span><span data-i18n="NHA_DIEU_HANH">NHÀ ĐIỀU HÀNH</span>
+                    </div>
+                    <div class="popup-item" data-value="can-canh">
+                        <span class="popup-dot"></span><span data-i18n="KHU_DICH_VU">KHU DỊCH VỤ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VỊ TRÍ DỰ ÁN - link Google Maps -->
+            <a href="https://www.google.com/maps/d/embed?mid=1tGr14Pw0DSDIEDYlVJJUexX6macgKTU&ehbc=2E312F&noprof=1"
+                target="_blank" class="nav-tab" id="tabVitri" data-tab="vitriduan">
+                <span data-i18n="NAV_VITRI">VỊ TRÍ DỰ ÁN</span>
+            </a>
+
+            <!-- MẶT BẰNG -->
+            <div class="nav-tab" id="tabMatBang" data-tab="matbang">
+                <span data-i18n="NAV_MATBANG">MẶT BẰNG</span>
+            </div>
+
+            <!-- TÀI LIỆU -->
+            <div class="nav-tab" id="tabTaiLieu" data-tab="tailieu">
+                <span data-i18n="NAV_TAILIEU">TÀI LIỆU</span>
+                <div class="tab-popup">
+                    <div class="popup-item" data-value="tl-brochure">
+                        <span class="popup-dot"></span><span data-i18n="TL_BROCHURE">BROCHURE DỰ ÁN</span>
+                    </div>
+                    <div class="popup-item" data-value="tl-phaply">
+                        <span class="popup-dot"></span><span data-i18n="TL_TVC">TVC GIỚI THIỆU DỰ ÁN</span>
+                    </div>
+                    <div class="popup-item" data-value="tl-quyhoach">
+                        <span class="popup-dot"></span><span data-i18n="TL_ALBUM">ALBUM ẢNH</span>
+                    </div>
+                    <a href="https://ccnngocchau.com.vn/" target="_blank" class="popup-item" class="nav-tab"
+                        data-value="tl-chinhsach">
+                        <span class="popup-dot"></span><span data-i18n="TL_WEBSITE">WEBSITE</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Ảnh Cổng Chính -->
+    <div id="congChinhModal" class="modal-overlay">
+        <div class="modal-container">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <img src="img/logo.png" alt="CCN Ngọc Châu Logo">
+                </div>
+                <span class="brochure-modal-title" data-i18n="TITLE_CONGCHINH_IMG">ẢNH CỔNG CHÍNH - CỤM CÔNG NGHIỆP NGỌC
+                    CHÂU</span>
+                <div class="modal-contact">
+                    <a href="tel:0919833566" class="modal-phone">
+                        <svg class="phone-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                            <path
+                                d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                        </svg>
+                        <span>0919.833.566</span>
+                    </a>
+                    <button type="button" class="modal-close" id="closeCongChinhModal"
+                        aria-label="Đóng">&times;</button>
+                </div>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <img src="img/anh-more/Bản sao của da3.jpg" alt="Cổng chính Cụm công nghiệp Ngọc Châu"
+                    class="matbang-img">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Ảnh Tổng Thể Mặt Trước -->
+    <div id="matTruocModal" class="modal-overlay">
+        <div class="modal-container">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <img src="img/logo.png" alt="CCN Ngọc Châu Logo">
+                </div>
+                <span class="brochure-modal-title" data-i18n="TITLE_MATTRUOC_IMG">ẢNH TỔNG THỂ MẶT TRƯỚC - CỤM CÔNG
+                    NGHIỆP NGỌC CHÂU</span>
+                <div class="modal-contact">
+                    <a href="tel:0919833566" class="modal-phone">
+                        <svg class="phone-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                            <path
+                                d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                        </svg>
+                        <span>0919.833.566</span>
+                    </a>
+                    <button type="button" class="modal-close" id="closeMatTruocModal" aria-label="Đóng">&times;</button>
+                </div>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <img src="img/anh-more/Bản sao của cong 2.jpg" alt="Tổng thể mặt trước Cụm công nghiệp Ngọc Châu"
+                    class="matbang-img">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Ảnh Tổng Thể Mặt Sau -->
+    <div id="matSauModal" class="modal-overlay">
+        <div class="modal-container">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <img src="img/logo.png" alt="CCN Ngọc Châu Logo">
+                </div>
+                <span class="brochure-modal-title" data-i18n="TITLE_MATSAU_IMG">ẢNH TỔNG THỂ MẶT SAU - CỤM CÔNG NGHIỆP
+                    NGỌC CHÂU</span>
+                <div class="modal-contact">
+                    <a href="tel:0919833566" class="modal-phone">
+                        <svg class="phone-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                            <path
+                                d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                        </svg>
+                        <span>0919.833.566</span>
+                    </a>
+                    <button type="button" class="modal-close" id="closeMatSauModal" aria-label="Đóng">&times;</button>
+                </div>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <img src="img/anh-more/Bản sao của cong bs 2.jpg" alt="Tổng thể mặt sau Cụm công nghiệp Ngọc Châu"
+                    class="matbang-img">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Mặt Bằng -->
+    <div id="matbangModal" class="modal-overlay">
+        <div class="modal-container">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <img src="img/logo.png" alt="CCN Ngọc Châu Logo">
+                </div>
+                <div class="modal-contact">
+                    <a href="tel:0919833566" class="modal-phone">
+                        <svg class="phone-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                            <path
+                                d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                        </svg>
+                        <span>0919.833.566</span>
+                    </a>
+                    <button type="button" class="modal-close" id="closeMatbangModal" aria-label="Đóng">&times;</button>
+                </div>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <img src="img/2.Matbang/mat-bang-ngoc-chau2.jpg" alt="Mặt bằng Cụm công nghiệp Ngọc Châu"
+                    class="matbang-img">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Brochure Dự Án -->
+    <div id="brochureModal" class="modal-overlay">
+        <div class="modal-container brochure-modal-container">
+            <!-- Modal Header -->
+            <div class="brochure-modal-header">
+                <div class="modal-logo">
+                    <img src="img/logo.png" alt="CCN Ngọc Châu Logo">
+                </div>
+                <span class="brochure-modal-title" data-i18n="TITLE_BROCHURE">BROCHURE DỰ ÁN CỤM CÔNG NGHIỆP NGỌC
+                    CHÂU</span>
+                <div class="modal-contact">
+                    <a href="tel:0919833566" class="modal-phone">
+                        <svg class="phone-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                            <path
+                                d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                        </svg>
+                        <span>0919.833.566</span>
+                    </a>
+                    <button type="button" class="modal-close" id="closeBrochureModal" aria-label="Đóng">&times;</button>
+                </div>
+            </div>
+            <!-- Modal Body -->
+            <div class="brochure-modal-body">
+                <iframe src="img/3.Brochure/brochure.pdf#toolbar=1" class="brochure-iframe"
+                    title="Brochure Dự án CCN Ngọc Châu"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal TVC Giới Thiệu Dự Án -->
+    <div id="tvcModal" class="modal-overlay">
+        <div class="modal-container tvc-modal-container">
+            <!-- Modal Header -->
+            <div class="modal-header tvc-modal-header">
+                <div class="modal-logo">
+                    <img src="img/logo.png" alt="CCN Ngọc Châu Logo">
+                </div>
+                <span class="brochure-modal-title" data-i18n="TITLE_TVC">TVC GIỚI THIỆU DỰ ÁN CỤM CÔNG NGHIỆP NGỌC CHÂU</span>
+                <div class="modal-contact">
+                    <a href="tel:0919833566" class="modal-phone">
+                        <svg class="phone-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                            <path
+                                d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                        </svg>
+                        <span>0919.833.566</span>
+                    </a>
+                    <button type="button" class="modal-close" id="closeTvcModal" aria-label="Đóng">&times;</button>
+                </div>
+            </div>
+            <!-- Modal Body -->
+            <div class="tvc-modal-body">
+                <video id="tvcVideoPlayer" controls controlsList="nodownload" playsinline preload="auto">
+                    <source src="img/4.TVC/360ccnchau.mp4" type="video/mp4">
+                    Trình duyệt của bạn không hỗ trợ thẻ video.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Album Ảnh -->
+    <div id="albumModal" class="modal-overlay">
+        <div class="modal-container album-modal-container">
+            <!-- Modal Header -->
+            <div class="album-modal-header">
+                <div class="modal-logo">
+                    <img src="img/logo.png" alt="CCN Ngọc Châu Logo">
+                </div>
+                <div class="album-header-title">
+                    <span class="album-modal-title" data-i18n="TITLE_ALBUM">ALBUM ẢNH DỰ ÁN CỤM CÔNG NGHIỆP NGỌC
+                        CHÂU</span>
+                    <span class="album-counter" id="albumCounter">01 / 23</span>
+                </div>
+                <div class="modal-contact">
+                    <a href="tel:0919833566" class="modal-phone">
+                        <svg class="phone-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                            <path
+                                d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                        </svg>
+                        <span>0919.833.566</span>
+                    </a>
+                    <button type="button" class="modal-close" id="closeAlbumModal" aria-label="Đóng">&times;</button>
+                </div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="album-modal-body">
+                <!-- Main Display Area -->
+                <div class="album-main-stage">
+                    <button type="button" class="album-nav-btn prev" id="albumPrevBtn" aria-label="Ảnh trước">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="infinite-gallery-stage" id="infiniteGalleryStage">
+                        <!-- Dynamic 3D Cards rendered here -->
+                    </div>
+                    <button type="button" class="album-nav-btn next" id="albumNextBtn" aria-label="Ảnh tiếp">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Thumbnail Carousel Bar -->
+                <div class="album-thumbs-container">
+                    <button type="button" class="thumb-scroll-btn left" id="thumbScrollLeft">&lsaquo;</button>
+                    <div class="album-thumbs-track" id="albumThumbsTrack">
+                        <!-- Dynamic Thumbnails Rendered Here -->
+                    </div>
+                    <button type="button" class="thumb-scroll-btn right" id="thumbScrollRight">&rsaquo;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden / Marzipano elements kept for compatibility -->
+    <div id="sceneList" style="display: none;">
+        <ul class="scenes">
+            <a href="javascript:void(0)" class="scene" data-id="0-1-360-topdown---trang-chu">
+                <li class="text">1. 360 Topdown - Trang chủ</li>
+            </a>
+            <a href="javascript:void(0)" class="scene" data-id="1-2-360---cong-chinh">
+                <li class="text">2. 360 - Cổng chính</li>
+            </a>
+            <a href="javascript:void(0)" class="scene" data-id="2-3-360---tong-the-mat-truoc">
+                <li class="text">3. 360 - Tổng thể mặt trước</li>
+            </a>
+            <a href="javascript:void(0)" class="scene" data-id="3-4-360---tong-the-mat-sau">
+                <li class="text">4. 360 - Tổng thể mặt sau</li>
+            </a>
+            <a href="javascript:void(0)" class="scene" data-id="4-5-360---duong-giao-thong-chinh">
+                <li class="text">5. 360 - Đường giao thông chính</li>
+            </a>
+            <a href="javascript:void(0)" class="scene" data-id="5-6-360---nha-dieu-hanh">
+                <li class="text">6. 360 - Nhà điều hành</li>
+            </a>
+            <a href="javascript:void(0)" class="scene" data-id="6-7-360---khu-dich-vu">
+                <li class="text">7. 360 - Khu dịch vụ</li>
+            </a>
+        </ul>
+    </div>
+
+    <div id="titleBar" style="display: none;">
+        <h1 class="sceneName"></h1>
+    </div>
+
+    <a href="javascript:void(0)" id="autorotateToggle" style="display: none;">
+        <img class="icon off" src="img/play.png">
+        <img class="icon on" src="img/pause.png">
+    </a>
+
+    <a href="javascript:void(0)" id="fullscreenToggle" style="display: none;">
+        <img class="icon off" src="img/fullscreen.png">
+        <img class="icon on" src="img/windowed.png">
+    </a>
+
+    <a href="javascript:void(0)" id="sceneListToggle" style="display: none;">
+        <img class="icon off" src="img/expand.png">
+        <img class="icon on" src="img/collapse.png">
+    </a>
+
+    <a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1" style="display: none;"><img
+            class="icon" src="img/up.png"></a>
+    <a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2" style="display: none;"><img
+            class="icon" src="img/down.png"></a>
+    <a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3" style="display: none;"><img
+            class="icon" src="img/left.png"></a>
+    <a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4"
+        style="display: none;"><img class="icon" src="img/right.png"></a>
+    <a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5" style="display: none;"><img
+            class="icon" src="img/plus.png"></a>
+    <a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6" style="display: none;"><img
+            class="icon" src="img/minus.png"></a>
+
+    <!-- Marzipano Scripts -->
+    <script src="vendor/screenfull.min.js"></script>
+    <script src="vendor/bowser.min.js"></script>
+    <script src="vendor/marzipano.js"></script>
+
+    <script src="data.js"></script>
+    <script src="index.js"></script>
+
+</body>
+
+</html>
